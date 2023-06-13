@@ -16,6 +16,7 @@
 #define SOLE_POSES_IMS__SOLE_POSES_IMS_HPP_
 
 #include <memory>
+#include <string>
 
 #include "biped_interfaces/msg/sole_poses.hpp"
 #include "interactive_markers/interactive_marker_server.hpp"
