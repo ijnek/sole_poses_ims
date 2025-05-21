@@ -11,12 +11,6 @@ find_package(biped_interfaces REQUIRED)
 find_package(interactive_markers REQUIRED)
 find_package(rclcpp_components REQUIRED)
 
-set(THIS_PACKAGE_INCLUDE_DEPENDS
-  ament_cmake
-  biped_interfaces
-  interactive_markers
-  rclcpp_components)
-
 # Build
 add_library(${PROJECT_NAME}_node SHARED
   src/sole_poses_ims.cpp)
@@ -28,10 +22,17 @@ rclcpp_components_register_node(${PROJECT_NAME}_node
   PLUGIN "sole_poses_ims::SolePosesIms"
   EXECUTABLE ${PROJECT_NAME})
 
-ament_target_dependencies(${PROJECT_NAME}_node ${THIS_PACKAGE_INCLUDE_DEPENDS})
+target_link_libraries(sole_poses_ims_node PUBLIC
+  ${biped_interfaces_TARGETS}
+  interactive_markers::interactive_markers
+  rclcpp_components::component)
 
 ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
-ament_export_dependencies(${THIS_PACKAGE_INCLUDE_DEPENDS})
+ament_export_dependencies(
+  ament_cmake
+  biped_interfaces
+  interactive_markers
+  rclcpp_components)
 
 # Install
 install(
